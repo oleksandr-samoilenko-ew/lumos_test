@@ -1,13 +1,13 @@
 class Network {
   final String name;
-  final String signal;
+  final int signal;
   final bool isPrivate;
 
   Network({required this.name, required this.signal, required this.isPrivate});
 
   Network copyWith({
     String? name,
-    String? signal,
+    int? signal,
     bool? isPrivate,
   }) {
     return Network(

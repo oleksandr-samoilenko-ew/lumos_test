@@ -12,7 +12,7 @@ class DataService {
         if (network
             case {
               'name': String name,
-              'signal': String signal,
+              'signal': int signal,
               'isPrivate': bool isPrivate,
             }) {
           return Network(name: name, signal: signal, isPrivate: isPrivate);
