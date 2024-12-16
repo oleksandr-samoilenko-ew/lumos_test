@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../data/data.dart';
+import '../../../data/data.dart';
 import 'models/network.dart';
 
 class DataService {
