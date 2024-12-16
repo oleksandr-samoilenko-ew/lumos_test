@@ -23,3 +23,12 @@ flutter pub get
 ```
 
 ## Demo
+
+**1. Landscape layout
+
+https://github.com/user-attachments/assets/299742a7-a0c3-47ad-89ab-56414d7131ac
+
+**2. Portrait
+
+https://github.com/user-attachments/assets/1da2f3b1-d004-4492-a743-e4308bfeef97
+
