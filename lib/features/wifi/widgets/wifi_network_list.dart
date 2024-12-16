@@ -8,9 +8,9 @@ import '../services/models/network.dart';
 import '../widgets/animated_list_item.dart';
 
 class WifiNetworkList extends StatefulWidget {
-  final double height;
+  final CrossAxisAlignment crossAxisAlignment;
 
-  const WifiNetworkList({super.key, required this.height});
+  const WifiNetworkList({super.key, required this.crossAxisAlignment});
 
   @override
   WifiNetworkListState createState() => WifiNetworkListState();
@@ -21,59 +21,42 @@ class WifiNetworkListState extends State<WifiNetworkList> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: const BoxDecoration(
-          border: Border(
-            left: BorderSide(
-              color: regularGreyColor,
-              width: 2,
-            ),
+    return Column(
+      crossAxisAlignment: widget.crossAxisAlignment,
+      children: [
+        _buildTitle(context),
+        const SizedBox(height: 30),
+        Expanded(
+          child: BlocConsumer<WifiCubit, WifiState>(
+            listener: (context, state) {
+              if (state is WifiLoaded && state.previousNetworks.isNotEmpty) {
+                _animateListChanges(state.previousNetworks, state.networks);
+              }
+            },
+            builder: (context, state) {
+              return switch (state) {
+                WifiLoading() => const CircularProgressIndicator(),
+                WifiLoaded(networks: var networks) => AnimatedList(
+                    key: _listKey,
+                    initialItemCount: networks.length,
+                    itemBuilder: (context, index, animation) {
+                      return AnimatedListItem(network: networks[index], animation: animation);
+                    },
+                  ),
+                WifiError(message: var message) => Text('Error: $message'),
+                _ => const Text('Press the refresh button to load networks'),
+              };
+            },
           ),
         ),
-        height: widget.height,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 60),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildTitle(context),
-              const SizedBox(height: 30),
-              Expanded(
-                child: BlocConsumer<WifiCubit, WifiState>(
-                  listener: (context, state) {
-                    if (state is WifiLoaded && state.previousNetworks.isNotEmpty) {
-                      _animateListChanges(state.previousNetworks, state.networks);
-                    }
-                  },
-                  builder: (context, state) {
-                    return switch (state) {
-                      WifiLoading() => const CircularProgressIndicator(),
-                      WifiLoaded(networks: var networks) => AnimatedList(
-                          key: _listKey,
-                          initialItemCount: networks.length,
-                          itemBuilder: (context, index, animation) {
-                            return AnimatedListItem(network: networks[index], animation: animation);
-                          },
-                        ),
-                      WifiError(message: var message) => Text('Error: $message'),
-                      _ => const Text('Press the refresh button to load networks'),
-                    };
-                  },
-                ),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton.icon(
-                onPressed: () => context.read<WifiCubit>().shuffleNetworks(),
-                style: ElevatedButton.styleFrom(backgroundColor: primaryButtonColor, foregroundColor: Colors.white),
-                label: const Text('Neu Laden'),
-                icon: const Icon(Icons.refresh),
-              ),
-            ],
-          ),
+        const SizedBox(height: 30),
+        ElevatedButton.icon(
+          onPressed: () => context.read<WifiCubit>().shuffleNetworks(),
+          style: ElevatedButton.styleFrom(backgroundColor: primaryButtonColor, foregroundColor: Colors.white),
+          label: const Text('Neu Laden'),
+          icon: const Icon(Icons.refresh),
         ),
-      ),
+      ],
     );
   }
 

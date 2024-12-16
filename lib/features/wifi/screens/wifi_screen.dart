@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/assets/assets.dart';
+import '../../../common/colors/colors.dart';
 import '../cubit/wifi_cubit.dart';
 import '../widgets/wifi_network_list.dart';
 
@@ -21,22 +24,65 @@ class WifiScreenState extends State<WifiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(title: const Text('Lumos')),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildLogo(),
-              WifiNetworkList(height: screenHeight / 3),
-            ],
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          log('constraints.maxWidth >>> ${constraints.maxWidth}');
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+            child: Center(
+              child: constraints.maxWidth > 600 ? _buildLandscapeLayout(constraints) : _buildPortraitLayout(constraints),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildLandscapeLayout(BoxConstraints constraints) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildLogo(),
+        Expanded(
+          child: Container(
+              decoration: const BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: regularGreyColor,
+                    width: 2,
+                  ),
+                ),
+              ),
+              height: constraints.maxHeight / 2.5,
+              child: const Padding(
+                padding: EdgeInsets.only(left: 60),
+                child: WifiNetworkList(crossAxisAlignment: CrossAxisAlignment.start),
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPortraitLayout(BoxConstraints constraints) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildLogo(),
+        SizedBox(height: constraints.maxHeight * 0.05),
+        Expanded(
+          child: SizedBox(
+            height: constraints.maxHeight / 5,
+            child: const Center(
+              child: WifiNetworkList(
+                crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 
