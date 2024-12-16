@@ -14,8 +14,14 @@ class DataService {
               'name': String name,
               'signal': int signal,
               'isPrivate': bool isPrivate,
+              'isClickable': bool isClickable,
             }) {
-          return Network(name: name, signal: signal, isPrivate: isPrivate);
+          return Network(
+            name: name,
+            signal: signal,
+            isPrivate: isPrivate,
+            isClickable: isClickable,
+          );
         } else {
           throw const FormatException('Unexpected network format');
         }

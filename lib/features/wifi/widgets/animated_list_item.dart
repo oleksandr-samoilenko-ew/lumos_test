@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lumos/features/wifi/widgets/password_dialog.dart';
 
 import '../services/models/network.dart';
+import '../utils/utils.dart';
 
 class AnimatedListItem extends StatelessWidget {
   final Network network;
@@ -26,21 +27,40 @@ class AnimatedListItem extends StatelessWidget {
           curve: Curves.easeInOut,
         )),
         child: ListTile(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => PasswordDialog(
-                networkName: network.name,
-              ),
-            );
-          },
+          onTap: network.isClickable
+              ? () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => PasswordDialog(
+                      networkName: network.name,
+                    ),
+                  );
+                }
+              : () {},
           contentPadding: EdgeInsets.zero,
           visualDensity: VisualDensity.compact,
           horizontalTitleGap: 15,
           title: Text(network.name),
-          leading: Icon(network.signal >= 3 ? Icons.network_wifi_3_bar : Icons.network_wifi),
+          leading: _buildWifiIcon(network),
         ),
       ),
+    );
+  }
+
+  Widget _buildWifiIcon(Network network) {
+    final IconData iconData = getWifiIcon(network.signal);
+
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Icon(iconData),
+        if (network.isPrivate)
+          const Positioned(
+            right: 0,
+            bottom: 0,
+            child: Icon(Icons.lock, size: 12),
+          ),
+      ],
     );
   }
 }
