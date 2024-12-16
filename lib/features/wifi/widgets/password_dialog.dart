@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lumos/common/colors/colors.dart';
+import 'package:lumos/features/wifi/widgets/password_text_field.dart';
 
-class PasswordDialog extends StatefulWidget {
+class PasswordDialog extends StatelessWidget {
   final String networkName;
 
   const PasswordDialog({
     super.key,
     required this.networkName,
   });
-
-  @override
-  State<PasswordDialog> createState() => _PasswordDialogState();
-}
-
-class _PasswordDialogState extends State<PasswordDialog> {
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +33,7 @@ class _PasswordDialogState extends State<PasswordDialog> {
                   ),
                   const SizedBox(height: 10.0),
                   Text(
-                    "Das Gerät versucht sich mit zu verbinden mit: ${widget.networkName}",
+                    "Das Gerät versucht sich mit zu verbinden mit: $networkName",
                     style: GoogleFonts.lato().copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                   ),
                   Text(
@@ -56,7 +49,7 @@ class _PasswordDialogState extends State<PasswordDialog> {
                 ],
               ),
             ),
-            _buildTextField(),
+            const PasswordTextField(),
             const SizedBox(height: 16.0),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -77,57 +70,13 @@ class _PasswordDialogState extends State<PasswordDialog> {
                     );
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: primaryButtonColor, foregroundColor: Colors.white),
-                  child: const Text('Abbrechen'),
+                  child: const Text('Connect'),
                 ),
               ],
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildTextField() {
-    return TextField(
-      controller: _passwordController,
-      decoration: InputDecoration(
-        hintStyle: GoogleFonts.lato().copyWith(fontSize: 16, fontWeight: FontWeight.w400, color: regularBlackColor.withOpacity(0.3)),
-        hintText: 'Passwort...',
-        filled: true,
-        fillColor: inputBgColor,
-        suffixIcon: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(25.0), color: secondaryButtonColor),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(25.0),
-            onTap: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(
-                _isObscure ? Icons.visibility_sharp : Icons.visibility_off_sharp,
-                size: 40,
-              ),
-            ),
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 25.0),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(25.0)),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(25.0),
-          borderSide: BorderSide.none,
-        ),
-      ),
-      obscureText: _isObscure,
     );
   }
 }

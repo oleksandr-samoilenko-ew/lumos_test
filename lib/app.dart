@@ -10,7 +10,7 @@ class Application extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalBlocProvider(
       child: MaterialApp(
-        title: 'Your App Name',
+        title: 'Lumos',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
