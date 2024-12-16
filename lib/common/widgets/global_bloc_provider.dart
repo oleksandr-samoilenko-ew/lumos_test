@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lumos/features/wifi/repositories/wifi_repository.dart';
 
-import '../../features/wifi/bloc/wifi_bloc.dart';
 import '../../features/wifi/cubit/wifi_cubit.dart';
 
 class GlobalBlocProvider extends StatelessWidget {
