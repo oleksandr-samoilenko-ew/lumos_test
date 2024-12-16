@@ -1,11 +1,13 @@
-import '../../../common/services/data_service.dart';
+
+import '../services/data_service.dart';
+import '../services/models/network.dart';
 
 abstract class WifiRepository {
   final DataService dataService;
 
   WifiRepository(this.dataService);
 
-  Future<Object> fetchImageDescription();
+  Future<List<Network>> fetchNetworks();
 }
 
 class WifiRepositoryImpl implements WifiRepository {
@@ -15,7 +17,7 @@ class WifiRepositoryImpl implements WifiRepository {
   WifiRepositoryImpl({required this.dataService});
 
   @override
-  Future<Object> fetchImageDescription() async {
+  Future<List<Network>> fetchNetworks() async {
     return await dataService.fetchNetworks();
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../features/wifi/repositories/wifi_repository.dart';
-import '../services/data_service.dart';
+import '../../features/wifi/services/data_service.dart';
 
 class RepositoriesHolder extends StatelessWidget {
   final Widget child;
