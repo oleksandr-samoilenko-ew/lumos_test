@@ -12,7 +12,12 @@ class Network {
   });
 
   Network copyWith({String? name, int? signal, bool? isPrivate, bool? isClickable}) {
-    return Network(name: name ?? this.name, signal: signal ?? this.signal, isPrivate: isPrivate ?? this.isPrivate, isClickable: isClickable ?? this.isClickable);
+    return Network(
+      name: name ?? this.name,
+      signal: signal ?? this.signal,
+      isPrivate: isPrivate ?? this.isPrivate,
+      isClickable: isClickable ?? this.isClickable,
+    );
   }
 
   @override

@@ -36,14 +36,14 @@ class WifiNetworkListState extends State<WifiNetworkList> {
             builder: (context, state) {
               return switch (state) {
                 WifiLoading() => const CircularProgressIndicator(),
-                WifiLoaded(networks: var networks) => AnimatedList(
+                WifiLoaded(networks: final networks) => AnimatedList(
                     key: _listKey,
                     initialItemCount: networks.length,
                     itemBuilder: (context, index, animation) {
                       return AnimatedListItem(network: networks[index], animation: animation);
                     },
                   ),
-                WifiError(message: var message) => Text('Error: $message'),
+                WifiError(message: final message) => Text('Error: $message'),
                 _ => const Text('Press the refresh button to load networks'),
               };
             },
@@ -79,7 +79,7 @@ class WifiNetworkListState extends State<WifiNetworkList> {
 
   void _animateListChanges(List<Network> oldList, List<Network> newList) {
     for (int oldIndex = 0; oldIndex < oldList.length; oldIndex++) {
-      int newIndex = newList.indexWhere((network) => network.name == oldList[oldIndex].name);
+      final newIndex = newList.indexWhere((network) => network.name == oldList[oldIndex].name);
       if (oldIndex != newIndex) {
         _listKey.currentState?.removeItem(
           oldIndex,

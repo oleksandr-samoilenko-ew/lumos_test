@@ -22,14 +22,16 @@ class AnimatedListItem extends StatelessWidget {
         position: Tween<Offset>(
           begin: const Offset(0, 1),
           end: Offset.zero,
-        ).animate(CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeInOut,
-        )),
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOut,
+          ),
+        ),
         child: ListTile(
           onTap: network.isClickable
               ? () {
-                  showDialog(
+                  showDialog<void>(
                     context: context,
                     builder: (context) => PasswordDialog(
                       networkName: network.name,

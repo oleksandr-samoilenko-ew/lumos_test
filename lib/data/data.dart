@@ -1,3 +1,4 @@
+
 const wifiJson = '''
 {
   "networks": [
@@ -29,8 +30,7 @@ const wifiJson = '''
       "name": "WLAN192484502145",
       "signal": 5,
       "isPrivate": false,
-        "isClickable": false
-      
+      "isClickable": false
     },
     {
       "name": "Lenas WIFI",

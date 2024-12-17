@@ -15,7 +15,7 @@ class WifiCubit extends Cubit<WifiState> {
     try {
       emit(WifiLoading());
       final networks = await wifiRepository.fetchNetworks();
-      emit(WifiLoaded(networks: networks, previousNetworks: []));
+      emit(WifiLoaded(networks: networks, previousNetworks: const []));
     } catch (e) {
       emit(WifiError('Failed to load WiFi networks: $e'));
     }

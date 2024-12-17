@@ -6,8 +6,8 @@ import 'common/widgets/global_bloc_provider.dart';
 import 'common/widgets/repository_holder.dart';
 
 Future<void> main() async {
-  await InjectorModule.inject();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await injectDependencies();
   runApp(
     const GlobalBlocProvider(
       child: RepositoriesHolder(

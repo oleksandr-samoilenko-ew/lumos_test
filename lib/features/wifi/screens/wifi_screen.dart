@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +26,6 @@ class WifiScreenState extends State<WifiScreen> {
       appBar: AppBar(title: const Text('Lumos')),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          log('constraints.maxWidth >>> ${constraints.maxWidth}');
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             child: Center(
@@ -42,25 +39,25 @@ class WifiScreenState extends State<WifiScreen> {
 
   Widget _buildLandscapeLayout(BoxConstraints constraints) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _buildLogo(),
         Expanded(
           child: Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  left: BorderSide(
-                    color: regularGreyColor,
-                    width: 2,
-                  ),
+            decoration: const BoxDecoration(
+              border: Border(
+                left: BorderSide(
+                  color: regularGreyColor,
+                  width: 2,
                 ),
               ),
-              height: constraints.maxHeight / 2.5,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 60),
-                child: WifiNetworkList(crossAxisAlignment: CrossAxisAlignment.start),
-              )),
+            ),
+            height: constraints.maxHeight / 2.5,
+            child: const Padding(
+              padding: EdgeInsets.only(left: 60),
+              child: WifiNetworkList(crossAxisAlignment: CrossAxisAlignment.start),
+            ),
+          ),
         ),
       ],
     );
